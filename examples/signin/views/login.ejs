@@ -1,10 +1,10 @@
-<form action="/auth/browserid" method="post" style="display:none;">
-	<input type="text" name="assertion"/>
+<form action="/auth/persona" method="post" style="display:none;">
+    <input type="text" name="assertion"/>
 </form>
 
-<img src="https://browserid.org/i/sign_in_red.png" id="browserid"/>
+<img src="https://persona.org/i/sign_in_red.png" id="persona"/>
 <script>
-  $("#browserid").click(function(){
+  $("#persona").click(function(){
     navigator.id.getVerifiedEmail(function(assertion) {
       if (assertion) {
         $("input").val(assertion);

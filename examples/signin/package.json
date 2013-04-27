@@ -1,10 +1,11 @@
 {
-  "name": "passport-browserid-examples-signin",
+  "name": "passport-persona-example",
   "version": "0.0.0",
   "dependencies": {
     "express": ">= 0.0.0",
+    "express-hbs": "0.1.4",
     "ejs": ">= 0.0.0",
     "passport": ">= 0.0.0",
-    "passport-browserid": ">= 0.0.0"
+    "dirty": "~0.9.7"
   }
 }

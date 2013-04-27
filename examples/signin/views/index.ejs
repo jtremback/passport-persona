@@ -1,5 +1,16 @@
+{{!< layout}}
+
+
+{{#contentFor "body"}}
+  {{#if user}}
+    <h2>Hello, <%= user.email %>.</h2>
+  {{else}}
+
+  {{/if}}
+
+
 <% if (!user) { %>
-	<h2>Welcome! Please log in.</h2>
+    <h2>Welcome! Please log in.</h2>
 <% } else { %>
-	<h2>Hello, <%= user.email %>.</h2>
 <% } %>
+{{/contentFor}}kkkkkkkkk

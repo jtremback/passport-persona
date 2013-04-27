@@ -7,11 +7,11 @@ test:
 
 docs: docs/api.html
 
-docs/api.html: lib/passport-browserid/*.js
+docs/api.html: lib/passport-persona/*.js
 	dox \
-		--title Passport-BrowserID \
-		--desc "BrowserID authentication strategy for Passport" \
-		$(shell find lib/passport-browserid/* -type f) > $@
+		--title Passport-Persona \
+		--desc "Persona authentication strategy for Passport" \
+		$(shell find lib/passport-persona/* -type f) > $@
 
 docclean:
 	rm -f docs/*.{1,html}

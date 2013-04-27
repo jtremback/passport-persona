@@ -13,42 +13,41 @@ exports.attach = function attach(settings, cb) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/login', function(req, res){
-    res.render('login', { user: req.user });
+
+  // login occurs on client side
+  // app.get('/auth/login', function(req, res) {
+  //   res.render('login', {
+  //     user: req.user
+  //   });
+  // });
+
+  app.post('/auth/logout', function(req, res) {
+    req.logout();
+    res.send('ok');
   });
 
   // POST /auth/persona
   //   Use passport.authenticate() as route middleware to authenticate the
   //   request.  Persona authentication will verify the assertion obtained from
   //   the browser via the JavaScript API.
-  app.post('/auth/persona',
-    passport.authenticate('persona', { failureRedirect: '/login' }),
-    function(req, res) {
-      res.redirect('/');
-    });
-
-  app.get('/logout', function(req, res){
-    req.logout();
+  app.post('/auth/persona', passport.authenticate('persona',
+    { failureRedirect: '/login' }), function(req, res) {
     res.redirect('/');
   });
 
-
-
-  // Passport session setup.
-  //   To support persistent login sessions, Passport needs to be able to
-  //   serialize users into and deserialize users out of the session.  Typically,
-  //   this will be as simple as storing the user ID when serializing, and finding
-  //   the user by ID when deserializing.  However, since this example does not
-  //   have a database of user records, the Persona verified email address
-  //   is serialized and deserialized.
+  // Passports calls this to store user into session
   passport.serializeUser(function(user, cb) {
-    User.findOrCreateByEmail(user.email, function(err, user) {
-      if (err) return cb(err);
+    process.nextTick(function() {
+      // This should only be the id, but it can be anything. The callback
+      // data is used by deserializeUser
       cb(null, user.id);
     });
   });
 
+  // Passport calls this to populate req.user
   passport.deserializeUser(function(id, done) {
+    console.log('deserializeUser', id);
+    // In real use, this would be memory store like Redis
     User.findById(id, done);
   });
 
@@ -57,18 +56,13 @@ exports.attach = function attach(settings, cb) {
   //   Strategies in passport require a `validate` function, which accept
   //   credentials (in this case, a Persona verified email address), and invoke
   //   a callback with a user object.
-  passport.use(new PersonaStrategy({ audience: url },
-    function(email, cb) {
-      User.findOrCreateByEmail(email, function(err, user) {
-        if (err) return cb(err);
-        cb(null, user);
-      });
-    }
-  ));
+  passport.use(new PersonaStrategy({ audience: url }, function(email, cb) {
+    console.log('passportuse', email);
+    User.findOrCreateByEmail(email, function(err, user) {
+      if (err) return cb(err);
+      cb(null, user);
+    });
+  }));
 
   cb();
 };
-
-
-
-

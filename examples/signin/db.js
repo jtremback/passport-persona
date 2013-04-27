@@ -1,39 +1,34 @@
 'use strict';
 var User = {};
-var Dirty = require('dirty');
-var db;
+var db = [];
 
+// Just a mock database using array
 
-var id = 0;
 User.findOrCreateByEmail = function(email, cb/*(err, user)*/) {
   process.nextTick(function() {
-    db.forEach(function(key, user) {
-      if (key === 'email' && user.email === email) {
-        cb(null, user);
+    var i, il, item;
+    for (i = 0, il = db.length; i < il; i++) {
+      item = db[i];
+      if (item.email === email) {
+        return cb(null, item);
       }
-    });
+    }
 
-    id++;
-    var user = {id: id, email: email};
-    db.set(id,  user, function() {
-      cb(null, user);
-    });
+    cb(null, db.push({id: db.length, email: email}));
   });
 };
 
 
 User.findById = function(id, cb/*(err, user)*/) {
   process.nextTick(function() {
-    var user = Dirty.get(id);
-    cb(null, user);
+    cb(null, db[id]);
   });
 };
 
 
 module.exports = {
   attach: function(settings, done) {
-    db = Dirty(__dirname + '/../user.db');
-    db.on('load', done);
+    done();
   },
 
   User: User

@@ -8,18 +8,68 @@
       <p>
       <a href="/">Home</a> |
       <a href="/account">Account</a> |
-      <a href="/logout">Log Out</a>
+      <a id='logout' href="#">Log Out</a>
       </p>
     {{else}}
       <p>
       <a href="/">Home</a> |
-      <a href="/login">Log In</a>
+      <a id='login' href="#">Log In</a>
       </p>
     {{/if}}
 
-    {{block "body"}}
+    {{{block 'body'}}}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
     <script src="https://login.persona.org/include.js"></script>
+    <script>
+      $(function() {
+        var user = '{{{user.email}}}';
+        navigator.id.watch({
+          loggedInUser: user,
+          onlogin: function(assertion) {
+            if (user) return;
+
+            $.post('/auth/persona', {assertion: assertion})
+             .done(function() {
+                console.log('login success', arguments);
+                window.location.reload();
+             })
+             .fail(function() {
+                console.log('login fail', arguments);
+                navigator.id.logout();
+                window.location = '/';
+             })
+          },
+          onlogout: function(assertion) {
+            if (!user) return;
+
+            $.post('/auth/logout')
+              .done(function() {
+                console.log('logout success', arguments);
+                window.location = '/';
+              })
+              .fail(function() {
+                console.error('logout fail', arguments);
+                window.location = '/';
+              });
+          }
+        });
+      });
+    </script>
+    <script>
+      $(function() {
+        $("#login").click(function() {
+          navigator.id.request();
+          return false;
+        });
+        $("#logout").click(function() {
+          navigator.id.logout();
+          return false;
+        });
+      });
+  </script>
+
+    {{{block 'scripts'}}}
   </body>
 </html>

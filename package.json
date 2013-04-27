@@ -1,11 +1,21 @@
 {
   "name": "passport-persona",
-  "version": "0.1.0",
-  "description": "BrowserID authentication strategy for Passport.",
-  "author": { "name": "Mario Gutierrez", "email": "mario@mgutz.com", "url": "http://www.jaredhanson.net/" },
+  "version": "0.0.1",
+  "description": "Mozilla Persona authentication strategy for Passport.",
+  "author": {
+    "name": "Mario Gutierrez",
+    "email": "mario@mgutz.com",
+    "url": "http://www.jaredhanson.net/"
+  },
   "contributors": [
-    { "name": "Jared Hanson", "email": "jaredhanson@gmail.com" },
-    { "name": "Leo McArdle", "email": "leomcardle@gmail.com" }
+    {
+      "name": "Jared Hanson",
+      "email": "jaredhanson@gmail.com"
+    },
+    {
+      "name": "Leo McArdle",
+      "email": "leomcardle@gmail.com"
+    }
   ],
   "repository": {
     "type": "git",
@@ -17,7 +27,8 @@
   "main": "./index.js",
   "dependencies": {
     "pkginfo": "~0.3.0",
-    "passport": "~0.1.16"
+    "passport": "~0.1.16",
+    "async": "~0.2.7"
   },
   "devDependencies": {
     "vows": "0.6.x"
@@ -25,10 +36,21 @@
   "scripts": {
     "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
   },
-  "engines": { "node": ">= 0.4.0" },
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT"
-  } ],
-  "keywords": ["passport", "persona", "auth", "authn", "authentication", "identity"]
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "keywords": [
+    "passport",
+    "persona",
+    "auth",
+    "authn",
+    "authentication",
+    "identity"
+  ]
 }

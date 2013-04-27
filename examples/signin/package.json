@@ -4,8 +4,6 @@
   "dependencies": {
     "express": ">= 0.0.0",
     "express-hbs": "0.1.4",
-    "ejs": ">= 0.0.0",
-    "passport": ">= 0.0.0",
-    "dirty": "~0.9.7"
+    "passport": ">= 0.0.0"
   }
 }

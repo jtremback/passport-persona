@@ -1,0 +1,10 @@
+{{!< layout}}
+
+{{#content "body"}}
+  {{#if user}}
+    <h2>Hello, {{user.email}} .</h2>
+  {{else}}
+    <h2>Welcome! Please log in.</h2>
+  {{/if}}
+{{/content}}
+

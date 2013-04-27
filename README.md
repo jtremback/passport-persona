@@ -57,7 +57,7 @@ non-final specifications should be understood prior to deployment.
 
 ## Examples
 
-For a complete, working example, refer to the [signin example](https://github.com/jaredhanson/passport-persona/tree/master/examples/signin).
+For a complete, working example, refer to the [signin example](examples/signin).
 
 ## Tests
 
